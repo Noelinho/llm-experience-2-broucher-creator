@@ -1,6 +1,8 @@
 from bs4 import BeautifulSoup
 import requests
 
+from Dtos.Webpage import Webpage
+
 headers = {
  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"
 }
@@ -11,7 +13,7 @@ class Scrapper:
     def __init__(self):
         pass
 
-    def scrape(self, url: str) -> dict:
+    def scrape(self, url: str) -> Webpage:
         title = ""
         body = ""
 
@@ -44,9 +46,13 @@ class Scrapper:
                 elem.decompose()
 
         body = soup.body.get_text(separator="\n", strip=True)
-        links = [link.get('href') for link in soup.find_all('a', href=True)]
 
-        return {"url":url, "title":title, "content":body, "links":links, "logo_img_url": logo_img_url, "main_img_url": main_img_url}
-
+        return Webpage(
+            url=url,
+            title=title,
+            content=body,
+            logoUrl=logo_img_url,
+            mainImageURl=main_img_url
+        )
 
 

@@ -3,7 +3,7 @@ from weasyprint import HTML
 import markdown
 from dotenv import load_dotenv
 
-from Dtos.Webpage import Webpage
+from Services.Scrapper.Scrapper import Scrapper
 from Services.Creator.OpenAI.OpenAIBroucherCreator import OpenAIBroucherCreator
 from Services.HtmlMaker.HtmlMaker import HtmlMaker
 
@@ -15,9 +15,9 @@ if len(sys.argv) < 2:
 
 url = sys.argv[1]
 
-webpage = Webpage(url)
+scrapper = Scrapper()
 creator = OpenAIBroucherCreator()
-broucher = creator.create_broucher(webpage.retrieveContent(False))
+broucher = creator.create_broucher(scrapper.scrape(url))
 broucher_markdown = markdown.markdown(broucher)
 html_template = HtmlMaker().make(broucher_markdown)
 

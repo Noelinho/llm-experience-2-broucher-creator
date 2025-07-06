@@ -1,0 +1,19 @@
+name: jt-broucher-creator
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - openai
+  - weasyprint
+  - markdown
+  - bs4
+  - requests
+  - gobject-introspection
+  - pango
+  - cairo
+  - gdk-pixbuf
+  - glib
+  - libffi
+  - pip:
+      - python-dotenv
